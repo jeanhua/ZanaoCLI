@@ -1,0 +1,21 @@
+# Build output
+build/
+zanao
+*.exe
+
+# Go
+*.test
+*.out
+vendor/
+
+# Env / secrets
+.env
+*.env
+
+# macOS
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+*.swp
