@@ -1,6 +1,5 @@
 # Build output
 build/
-zanao
 *.exe
 
 # Go
