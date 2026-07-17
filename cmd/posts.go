@@ -142,6 +142,20 @@ var postsFinishCmd = &cobra.Command{
 	},
 }
 
+var postsInfoCmd = &cobra.Command{
+	Use:   "info",
+	Short: "获取帖子详情",
+	RunE: func(cmd *cobra.Command, args []string) error {
+		thread, _ := cmd.Flags().GetString("thread")
+		detail, err := getClient().GetThreadInfo(thread)
+		if err != nil {
+			return err
+		}
+		output.PrintItem(*detail, jsonOutput)
+		return nil
+	},
+}
+
 func init() {
 	postsCmd.AddCommand(postsListCmd)
 	postsCmd.AddCommand(postsHotCmd)
@@ -151,6 +165,7 @@ func init() {
 	postsCmd.AddCommand(postsUnlikeCmd)
 	postsCmd.AddCommand(postsCreateCmd)
 	postsCmd.AddCommand(postsFinishCmd)
+	postsCmd.AddCommand(postsInfoCmd)
 
 	postsListCmd.Flags().String("from", "0", "分页起始时间戳（0 表示从最新开始，用上一页结果中的 timestamp 获取更早的帖子）")
 
@@ -184,4 +199,7 @@ func init() {
 
 	postsFinishCmd.Flags().String("thread", "", "帖子 ID")
 	postsFinishCmd.MarkFlagRequired("thread")
+
+	postsInfoCmd.Flags().String("thread", "", "帖子 ID")
+	postsInfoCmd.MarkFlagRequired("thread")
 }
